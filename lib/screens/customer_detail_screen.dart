@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../models/customer_model.dart';
 import '../providers/customer_provider.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/header.dart';
 import '../routes/app_router.dart';
+import '../widgets/header.dart';
+import '../widgets/sidebar.dart';
 
 class CustomerDetailScreen extends StatelessWidget {
   final String customerId;

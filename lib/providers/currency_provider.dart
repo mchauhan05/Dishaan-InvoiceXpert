@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import '../models/currency_model.dart';
-import '../services/database_service.dart';
 
 /// Provider for currency management
 class CurrencyProvider extends ChangeNotifier {

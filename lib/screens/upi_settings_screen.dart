@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
 import '../models/upi_payment_model.dart';
 import '../providers/upi_payment_provider.dart';
-import '../widgets/app_layout.dart';
 import '../utils/translation_extension.dart';
+import '../widgets/app_layout.dart';
 
 class UpiSettingsScreen extends StatefulWidget {
   const UpiSettingsScreen({Key? key}) : super(key: key);

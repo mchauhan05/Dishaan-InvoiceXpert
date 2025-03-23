@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../providers/auth_provider.dart';
 import '../routes/app_router.dart';

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/customer_provider.dart';
-import '../models/customer_model.dart';
+
 import '../constants/app_colors.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/header.dart';
+import '../models/customer_model.dart';
+import '../providers/customer_provider.dart';
 import '../routes/app_router.dart';
+import '../widgets/header.dart';
+import '../widgets/sidebar.dart';
 
 class CustomerFormScreen extends StatefulWidget {
   final bool isEditing;

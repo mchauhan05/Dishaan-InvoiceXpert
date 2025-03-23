@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/header.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/dashboard_tabs.dart';
-import '../widgets/total_receivables_card.dart';
-import '../widgets/sales_expenses_card.dart';
-import '../widgets/projects_card.dart';
-import '../widgets/sales_receipts_table.dart';
-import '../widgets/top_expenses_card.dart';
+
 import '../constants/app_colors.dart';
 import '../providers/dashboard_provider.dart';
 import '../routes/app_router.dart';
+import '../widgets/dashboard_tabs.dart';
+import '../widgets/header.dart';
+import '../widgets/projects_card.dart';
+import '../widgets/sales_expenses_card.dart';
+import '../widgets/sales_receipts_table.dart';
+import '../widgets/sidebar.dart';
+import '../widgets/top_expenses_card.dart';
+import '../widgets/total_receivables_card.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);

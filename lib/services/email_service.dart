@@ -1,8 +1,10 @@
 import 'dart:async';
+
 import 'package:url_launcher/url_launcher_string.dart';
-import '../models/settings_model.dart';
-import '../models/invoice_models.dart';
+
 import '../models/customer_model.dart';
+import '../models/invoice_models.dart';
+import '../models/settings_model.dart';
 import '../utils/pdf_generator.dart';
 
 /// A service class for handling email operations

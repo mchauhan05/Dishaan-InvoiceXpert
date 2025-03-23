@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/header.dart';
 import '../routes/app_router.dart';
+import '../widgets/header.dart';
+import '../widgets/sidebar.dart';
 
 class ItemsScreen extends StatelessWidget {
   const ItemsScreen({Key? key}) : super(key: key);

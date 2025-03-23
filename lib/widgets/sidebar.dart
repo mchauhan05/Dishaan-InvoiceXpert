@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../constants/app_colors.dart';
-import '../routes/app_router.dart';
+
 import '../providers/branding_provider.dart';
+import '../routes/app_router.dart';
 import '../utils/translation_extension.dart';
 
 class Sidebar extends StatelessWidget {

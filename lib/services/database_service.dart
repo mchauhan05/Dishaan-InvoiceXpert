@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/auth_model.dart';
 import '../models/customer_model.dart';
 import '../models/product_model.dart';
-import '../models/auth_model.dart';
 
 /// A service class for handling database operations
 /// This is a simple implementation using SharedPreferences

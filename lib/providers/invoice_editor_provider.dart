@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-import '../models/invoice_models.dart';
+
 import '../models/dashboard_data.dart';
+import '../models/invoice_models.dart';
 
 class InvoiceEditorProvider extends ChangeNotifier {
   // Current invoice being edited

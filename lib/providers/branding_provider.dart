@@ -1,8 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
 import '../models/branding_model.dart';
 import '../services/database_service.dart';
-import 'dart:io';
-import 'dart:convert';
 
 /// Provider for branding and customization settings
 class BrandingProvider extends ChangeNotifier {

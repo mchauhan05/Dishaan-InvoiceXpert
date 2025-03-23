@@ -1,6 +1,6 @@
 import 'dart:convert';
+
 import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
 
 /// Represents a supported language in the application
 class AppLanguage {

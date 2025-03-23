@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/header.dart';
 import '../models/product_model.dart';
 import '../providers/product_provider.dart';
 import '../utils/barcode_utils.dart';
+import '../widgets/header.dart';
+import '../widgets/sidebar.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({Key? key}) : super(key: key);

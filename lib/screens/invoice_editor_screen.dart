@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../models/invoice_models.dart';
 import '../providers/invoice_provider.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/header.dart';
 import '../routes/app_router.dart';
+import '../widgets/header.dart';
+import '../widgets/sidebar.dart';
 
 class InvoiceEditorScreen extends StatefulWidget {
   final bool isEditing;

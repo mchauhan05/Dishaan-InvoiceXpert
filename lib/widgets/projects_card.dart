@@ -1,9 +1,10 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fl_chart/fl_chart.dart';
+
 import '../constants/app_colors.dart';
-import '../providers/dashboard_provider.dart';
 import '../models/dashboard_data.dart';
+import '../providers/dashboard_provider.dart';
 
 class ProjectsCard extends StatefulWidget {
   const ProjectsCard({Key? key}) : super(key: key);

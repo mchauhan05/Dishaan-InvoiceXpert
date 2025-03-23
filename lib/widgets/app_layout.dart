@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widgets/header.dart';
-import '../widgets/sidebar.dart';
+
 import '../constants/app_colors.dart';
 import '../routes/app_router.dart';
+import '../widgets/header.dart';
+import '../widgets/sidebar.dart';
 
 class AppLayout extends StatelessWidget {
   final Widget child;

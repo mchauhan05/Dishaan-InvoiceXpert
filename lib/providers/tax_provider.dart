@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+
 import '../models/tax_model.dart';
-import '../models/product_model.dart';
-import '../models/customer_model.dart';
-import '../services/database_service.dart';
 
 /// Provider for tax management
 class TaxProvider extends ChangeNotifier {
@@ -26,10 +24,15 @@ class TaxProvider extends ChangeNotifier {
 
   // Getters
   List<Tax> get taxes => _taxes;
+
   List<TaxJurisdiction> get jurisdictions => _jurisdictions;
+
   Tax get defaultTax => _defaultTax ?? _getDefaultTax();
+
   List<String> get activeJurisdictionIds => _activeJurisdictionIds;
+
   bool get isLoading => _isLoading;
+
   String? get error => _error;
 
   // Constructor
@@ -87,7 +90,8 @@ class TaxProvider extends ChangeNotifier {
       id: 'default_tax',
       name: 'Sales Tax',
       type: TaxType.salesTax,
-      rate: 0.0, // 0% by default
+      rate: 0.0,
+      // 0% by default
       isActive: true,
     );
   }
@@ -186,7 +190,8 @@ class TaxProvider extends ChangeNotifier {
     // Update tax in jurisdictions
     for (int i = 0; i < _jurisdictions.length; i++) {
       final jurisdiction = _jurisdictions[i];
-      final taxIndex = jurisdiction.taxes.indexWhere((t) => t.id == updatedTax.id);
+      final taxIndex =
+          jurisdiction.taxes.indexWhere((t) => t.id == updatedTax.id);
       if (taxIndex >= 0) {
         final updatedTaxes = List<Tax>.from(jurisdiction.taxes);
         updatedTaxes[taxIndex] = updatedTax;
@@ -222,7 +227,8 @@ class TaxProvider extends ChangeNotifier {
     // Remove tax from jurisdictions
     for (int i = 0; i < _jurisdictions.length; i++) {
       final jurisdiction = _jurisdictions[i];
-      final updatedTaxes = jurisdiction.taxes.where((t) => t.id != taxId).toList();
+      final updatedTaxes =
+          jurisdiction.taxes.where((t) => t.id != taxId).toList();
       if (updatedTaxes.length != jurisdiction.taxes.length) {
         _jurisdictions[i] = jurisdiction.copyWith(taxes: updatedTaxes);
       }
@@ -251,7 +257,8 @@ class TaxProvider extends ChangeNotifier {
 
   // Update a jurisdiction
   Future<bool> updateJurisdiction(TaxJurisdiction updatedJurisdiction) async {
-    final index = _jurisdictions.indexWhere((j) => j.id == updatedJurisdiction.id);
+    final index =
+        _jurisdictions.indexWhere((j) => j.id == updatedJurisdiction.id);
     if (index < 0) {
       _error = 'Jurisdiction with ID ${updatedJurisdiction.id} not found';
       notifyListeners();
@@ -360,8 +367,7 @@ class TaxProvider extends ChangeNotifier {
       }
 
       // Check exemptions provided in the call
-      if (exemptCategories != null &&
-          exemptCategories.contains(tax.id)) {
+      if (exemptCategories != null && exemptCategories.contains(tax.id)) {
         return false;
       }
 
@@ -391,8 +397,7 @@ class TaxProvider extends ChangeNotifier {
       }
 
       // Check exemptions provided in the call
-      if (exemptCategories != null &&
-          exemptCategories.contains(tax.id)) {
+      if (exemptCategories != null && exemptCategories.contains(tax.id)) {
         return false;
       }
 

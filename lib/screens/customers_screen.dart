@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
-import '../providers/dashboard_provider.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/header.dart';
-import '../routes/app_router.dart';
 import '../models/dashboard_data.dart';
+import '../providers/dashboard_provider.dart';
+import '../routes/app_router.dart';
+import '../widgets/header.dart';
+import '../widgets/sidebar.dart';
 
 class CustomersScreen extends StatefulWidget {
   const CustomersScreen({Key? key}) : super(key: key);

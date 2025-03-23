@@ -1,14 +1,12 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../models/report_model.dart';
-import '../models/invoice_models.dart';
+
 import '../models/customer_model.dart';
-import '../models/product_model.dart';
+import '../models/invoice_models.dart';
+import '../models/report_model.dart';
 import '../models/settings_model.dart';
 import '../services/report_service.dart';
-import '../services/database_service.dart';
 
 /// Provider class for report management
 class ReportProvider extends ChangeNotifier {

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import '../screens/dashboard_screen.dart';
-import '../screens/invoices_screen.dart';
-import '../screens/customers_screen.dart';
-import '../screens/reports_screen.dart';
-import '../screens/items_screen.dart';
-import '../screens/expenses_screen.dart';
+
 import '../screens/basic_invoice_form.dart';
-import '../screens/customer_form_screen.dart';
 import '../screens/customer_detail_screen.dart';
-import '../screens/settings_screen.dart';
-import '../screens/login_screen.dart';
-import '../screens/indian_gst_settings_screen.dart';
-import '../screens/language_settings_screen.dart';
-import '../screens/upi_settings_screen.dart';
+import '../screens/customer_form_screen.dart';
+import '../screens/customers_screen.dart';
+import '../screens/dashboard_screen.dart';
+import '../screens/expenses_screen.dart';
 import '../screens/gst_return_filing_screen.dart'; // Import GST Return Filing screen
+import '../screens/indian_gst_settings_screen.dart';
+import '../screens/invoices_screen.dart';
+import '../screens/items_screen.dart';
+import '../screens/language_settings_screen.dart';
+import '../screens/login_screen.dart';
+import '../screens/reports_screen.dart';
+import '../screens/settings_screen.dart';
+import '../screens/upi_settings_screen.dart';
 
 class AppRouter {
   static const String login = '/login';
@@ -34,11 +35,11 @@ class AppRouter {
   static const String editCustomer = '/customers/edit';
   static const String customerDetail = '/customers/detail';
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     // Extract arguments if available
-    final args = settings.arguments;
+    final args = routeSettings.arguments;
 
-    switch (settings.name) {
+    switch (routeSettings.name) {
       case login:
         return _createRoute(const LoginScreen());
       case dashboard:

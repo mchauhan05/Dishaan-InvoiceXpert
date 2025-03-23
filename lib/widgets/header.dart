@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
-import '../routes/app_router.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/app_colors.dart';
 import '../providers/auth_provider.dart';
+import '../routes/app_router.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);

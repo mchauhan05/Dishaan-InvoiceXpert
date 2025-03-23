@@ -1,13 +1,11 @@
-import 'dart:typed_data';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+
+import '../models/indian_invoice_model.dart';
 import '../models/invoice_models.dart';
 import '../models/settings_model.dart';
-import '../models/indian_invoice_model.dart';
-import '../utils/currency_utils.dart';
 
 /// Specialized PDF generator for Indian GST invoices
 class IndianPdfGenerator {

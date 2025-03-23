@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/app_layout.dart';
-import '../widgets/language_selector.dart';
+
 import '../providers/language_provider.dart';
 import '../utils/translation_extension.dart';
+import '../widgets/app_layout.dart';
+import '../widgets/language_selector.dart';
 
 class LanguageSettingsScreen extends StatelessWidget {
   const LanguageSettingsScreen({Key? key}) : super(key: key);

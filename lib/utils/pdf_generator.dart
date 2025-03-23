@@ -173,7 +173,7 @@ class PdfGenerator {
                               ],
                             ),
                             pw.SizedBox(height: 16),
-                            if (invoice.status.toLowerCase() != 'paid')
+                            if (invoice.status.name.toLowerCase() != 'paid')
                               pw.Container(
                                 padding: const pw.EdgeInsets.all(6),
                                 decoration: pw.BoxDecoration(
@@ -183,7 +183,7 @@ class PdfGenerator {
                                       pw.Radius.circular(4)),
                                 ),
                                 child: pw.Text(
-                                  invoice.status.toUpperCase(),
+                                  invoice.status.name.toUpperCase(),
                                   style: pw.TextStyle(
                                     color: PdfColors.red,
                                     fontWeight: pw.FontWeight.bold,

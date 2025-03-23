@@ -115,7 +115,7 @@ Regards,
       final pdfBytes = await PdfGenerator.generateInvoicePdf(
         invoice,
         settings,
-        addWatermark: invoice.status.toLowerCase() != 'paid',
+        addWatermark: invoice.status.toString().toLowerCase() != 'paid',
       );
 
       // Save PDF to temporary file

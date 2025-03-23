@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -61,7 +62,8 @@ class UpiQrGenerator {
   }
 
   /// Generate a UPI QR code for an invoice
-  static Widget generateInvoiceUpiQr(Invoice invoice, {
+  static Widget generateInvoiceUpiQr(
+    Invoice invoice, {
     required String upiId,
     required String payeeName,
     String? merchantCode,
@@ -74,7 +76,8 @@ class UpiQrGenerator {
     final String referenceId = invoice.invoiceNumber;
 
     // Create a transaction note with invoice details
-    final String transactionNote = "Payment for Invoice #${invoice.invoiceNumber}";
+    final String transactionNote =
+        "Payment for Invoice #${invoice.invoiceNumber}";
 
     return generateUpiQrWidget(
       upiId: upiId,
@@ -88,18 +91,12 @@ class UpiQrGenerator {
   }
 
   /// Capture QR widget as image for PDF embedding
-  static Future<Uint8List> captureQrCodeAsImage(Widget qrWidget, {double size = 200}) async {
-    final RenderRepaintBoundary boundary = RenderRepaintBoundary();
-    final RenderObject renderObject = boundary.attachRenderObject(
-      RenderObject(),
-    );
-
-    final BuildContext context = BuildContext(
-      renderObject,
-    );
+  static Future<Uint8List> captureQrCodeAsImage(Widget qrWidget,
+      {double size = 200}) async {
+    final GlobalKey repaintBoundaryKey = GlobalKey();
 
     final qrImage = RepaintBoundary(
-      key: GlobalKey(),
+      key: repaintBoundaryKey,
       child: SizedBox(
         width: size,
         height: size,
@@ -107,17 +104,44 @@ class UpiQrGenerator {
       ),
     );
 
-    // Wait for the first frame to be rendered
-    await Future.delayed(Duration(milliseconds: 100));
+    final Completer<Uint8List> completer = Completer();
+    final OverlayEntry overlayEntry = OverlayEntry(
+      builder: (context) => Positioned.fill(
+        child: Center(child: qrImage),
+      ),
+    );
 
-    final ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-    final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final BuildContext? context = repaintBoundaryKey.currentContext;
+      if (context == null) {
+        completer.completeError(
+            Exception('Failed to find BuildContext for QR code widget.'));
+        return;
+      }
 
-    if (byteData == null) {
-      throw Exception('Failed to capture QR code as image');
-    }
+      final RenderRepaintBoundary? boundary = repaintBoundaryKey.currentContext
+          ?.findRenderObject() as RenderRepaintBoundary?;
 
-    return byteData.buffer.asUint8List();
+      if (boundary == null) {
+        completer
+            .completeError(Exception('Failed to find RenderRepaintBoundary.'));
+        return;
+      }
+
+      final ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      final ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+
+      if (byteData == null) {
+        completer
+            .completeError(Exception('Failed to convert image to byte data.'));
+        return;
+      }
+
+      completer.complete(byteData.buffer.asUint8List());
+    });
+
+    return completer.future;
   }
 
   /// Add UPI QR code to PDF

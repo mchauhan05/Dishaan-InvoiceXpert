@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class CompanyProfile {
   final String companyName;
   final String contactPerson;
@@ -126,6 +128,17 @@ class EmailSettings {
   }
 }
 
+// **Date/Time Settings**
+class DateTimeSettings {
+  String dateFormat; // Example: 'MM/dd/yyyy' or 'yyyy-MM-dd'
+
+  DateTimeSettings({this.dateFormat = 'yyyy-MM-dd'});
+
+  String formatDate(DateTime date) {
+    return DateFormat(dateFormat).format(date);
+  }
+}
+
 class InvoiceSettings {
   final String invoicePrefix;
   final int nextInvoiceNumber;
@@ -136,18 +149,19 @@ class InvoiceSettings {
   final bool showDueDate;
   final bool showPaidStamp;
   final bool showLogo;
+  String termsAndConditions;
 
-  InvoiceSettings({
-    this.invoicePrefix = 'INV-',
-    this.nextInvoiceNumber = 1,
-    this.defaultTerms = 'Payment is due within 30 days',
-    this.defaultNotes = 'Thank you for your business',
-    this.dueDays = 30,
-    this.autoNumbering = true,
-    this.showDueDate = true,
-    this.showPaidStamp = true,
-    this.showLogo = true,
-  });
+  InvoiceSettings(
+      {this.invoicePrefix = 'INV-',
+      this.nextInvoiceNumber = 1,
+      this.defaultTerms = 'Payment is due within 30 days',
+      this.defaultNotes = 'Thank you for your business',
+      this.dueDays = 30,
+      this.autoNumbering = true,
+      this.showDueDate = true,
+      this.showPaidStamp = true,
+      this.showLogo = true,
+      this.termsAndConditions = ''});
 
   InvoiceSettings copyWith({
     String? invoicePrefix,
@@ -214,6 +228,7 @@ class AppSettings {
   final CompanyProfile companyProfile;
   final TaxSettings taxSettings;
   final EmailSettings emailSettings;
+  final DateTimeSettings dateTimeSettings;
   final InvoiceSettings invoiceSettings;
   final CurrencySettings currencySettings;
   final bool darkMode;
@@ -222,6 +237,7 @@ class AppSettings {
     required this.companyProfile,
     required this.taxSettings,
     required this.emailSettings,
+    required this.dateTimeSettings,
     required this.invoiceSettings,
     required this.currencySettings,
     this.darkMode = false,
@@ -231,6 +247,7 @@ class AppSettings {
     CompanyProfile? companyProfile,
     TaxSettings? taxSettings,
     EmailSettings? emailSettings,
+    DateTimeSettings? dateTimeSettings,
     InvoiceSettings? invoiceSettings,
     CurrencySettings? currencySettings,
     bool? darkMode,
@@ -240,6 +257,7 @@ class AppSettings {
       taxSettings: taxSettings ?? this.taxSettings,
       emailSettings: emailSettings ?? this.emailSettings,
       invoiceSettings: invoiceSettings ?? this.invoiceSettings,
+      dateTimeSettings: dateTimeSettings ?? this.dateTimeSettings,
       currencySettings: currencySettings ?? this.currencySettings,
       darkMode: darkMode ?? this.darkMode,
     );

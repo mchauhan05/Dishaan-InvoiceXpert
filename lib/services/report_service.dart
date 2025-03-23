@@ -32,7 +32,7 @@ class ReportService {
     // Filter invoices by date range
     final filteredInvoices = invoices.where((invoice) {
       return invoice.date.isAfter(dateRange.start) &&
-             invoice.date.isBefore(dateRange.end.add(const Duration(days: 1)));
+          invoice.date.isBefore(dateRange.end.add(const Duration(days: 1)));
     }).toList();
 
     // Generate report ID
@@ -76,7 +76,20 @@ class ReportService {
         }
 
         // Then compare month
-        final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        final months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec'
+        ];
         return months.indexOf(aMonth).compareTo(months.indexOf(bMonth));
       });
 
@@ -121,7 +134,8 @@ class ReportService {
       for (final invoice in filteredInvoices) {
         final customerId = invoice.customer.id;
         final customerName = invoice.customer.name;
-        customerSales[customerId] = (customerSales[customerId] ?? 0) + invoice.total;
+        customerSales[customerId] =
+            (customerSales[customerId] ?? 0) + invoice.total;
         customerNames[customerId] = customerName;
       }
 
@@ -130,7 +144,10 @@ class ReportService {
         return ReportDataPoint(
           label: customerNames[entry.key] ?? 'Unknown',
           value: entry.value,
-          metadata: {'customerId': entry.key, 'customerName': customerNames[entry.key]},
+          metadata: {
+            'customerId': entry.key,
+            'customerName': customerNames[entry.key]
+          },
         );
       }).toList();
 
@@ -148,10 +165,15 @@ class ReportService {
     }
 
     // Calculate summary
-    final totalSales = filteredInvoices.fold(0.0, (sum, invoice) => sum + invoice.total);
-    final averageSale = filteredInvoices.isEmpty ? 0.0 : totalSales / filteredInvoices.length;
-    final paidInvoices = filteredInvoices.where((invoice) => invoice.status.toLowerCase() == 'paid').toList();
-    final paidAmount = paidInvoices.fold(0.0, (sum, invoice) => sum + invoice.total);
+    final totalSales =
+        filteredInvoices.fold(0.0, (sum, invoice) => sum + invoice.total);
+    final averageSale =
+        filteredInvoices.isEmpty ? 0.0 : totalSales / filteredInvoices.length;
+    final paidInvoices = filteredInvoices
+        .where((invoice) => invoice.status.toLowerCase() == 'paid')
+        .toList();
+    final paidAmount =
+        paidInvoices.fold(0.0, (sum, invoice) => sum + invoice.total);
     final unpaidAmount = totalSales - paidAmount;
 
     final summary = {
@@ -160,7 +182,8 @@ class ReportService {
       'averageSale': averageSale,
       'paidAmount': paidAmount,
       'unpaidAmount': unpaidAmount,
-      'paidPercentage': filteredInvoices.isEmpty ? 0.0 : (paidAmount / totalSales) * 100,
+      'paidPercentage':
+          filteredInvoices.isEmpty ? 0.0 : (paidAmount / totalSales) * 100,
     };
 
     // Create and return the report
@@ -192,7 +215,7 @@ class ReportService {
     // Filter invoices by date range
     final filteredInvoices = invoices.where((invoice) {
       return invoice.date.isAfter(dateRange.start) &&
-             invoice.date.isBefore(dateRange.end.add(const Duration(days: 1)));
+          invoice.date.isBefore(dateRange.end.add(const Duration(days: 1)));
     }).toList();
 
     // Calculate customer insights
@@ -216,7 +239,8 @@ class ReportService {
 
         final firstPurchase = customerInvoiceList.first.date;
         final lastPurchase = customerInvoiceList.last.date;
-        final totalSpent = customerInvoiceList.fold(0.0, (sum, invoice) => sum + invoice.total);
+        final totalSpent = customerInvoiceList.fold(
+            0.0, (sum, invoice) => sum + invoice.total);
         final averageValue = totalSpent / customerInvoiceList.length;
         final daysSinceLastPurchase = now.difference(lastPurchase).inDays;
 
@@ -225,7 +249,8 @@ class ReportService {
         for (final invoice in customerInvoiceList) {
           for (final item in invoice.items) {
             final category = item.category ?? 'Uncategorized';
-            categoryAmounts[category] = (categoryAmounts[category] ?? 0) + (item.quantity * item.unitPrice);
+            categoryAmounts[category] = (categoryAmounts[category] ?? 0) +
+                (item.quantity * item.unitPrice);
           }
         }
 
@@ -238,9 +263,10 @@ class ReportService {
           }
         });
 
-        final mostPurchasedPercentage = totalSpent > 0 && mostPurchasedAmount != null
-            ? (mostPurchasedAmount! / totalSpent) * 100
-            : null;
+        final mostPurchasedPercentage =
+            totalSpent > 0 && mostPurchasedAmount != null
+                ? (mostPurchasedAmount! / totalSpent) * 100
+                : null;
 
         // Determine customer segment (simple logic)
         String segment;
@@ -262,7 +288,8 @@ class ReportService {
           averageInvoiceValue: averageValue,
           firstPurchaseDate: firstPurchase,
           lastPurchaseDate: lastPurchase,
-          lifetimeValue: totalSpent, // Simplified LTV
+          lifetimeValue: totalSpent,
+          // Simplified LTV
           daysSinceLastPurchase: daysSinceLastPurchase,
           mostPurchasedCategory: mostPurchasedCategory,
           mostPurchasedCategoryPercentage: mostPurchasedPercentage,
@@ -282,7 +309,10 @@ class ReportService {
       return ReportDataPoint(
         label: insight.customerName,
         value: insight.totalSpent,
-        metadata: {'customerId': insight.customerId, 'segment': insight.segment},
+        metadata: {
+          'customerId': insight.customerId,
+          'segment': insight.segment
+        },
       );
     }).toList();
 
@@ -297,8 +327,10 @@ class ReportService {
     final Map<String, int> segmentCounts = {};
 
     for (final insight in insights) {
-      segmentTotals[insight.segment] = (segmentTotals[insight.segment] ?? 0) + insight.totalSpent;
-      segmentCounts[insight.segment] = (segmentCounts[insight.segment] ?? 0) + 1;
+      segmentTotals[insight.segment] =
+          (segmentTotals[insight.segment] ?? 0) + insight.totalSpent;
+      segmentCounts[insight.segment] =
+          (segmentCounts[insight.segment] ?? 0) + 1;
     }
 
     final segmentPoints = segmentTotals.entries.map((entry) {
@@ -317,13 +349,21 @@ class ReportService {
 
     // Calculate summary
     final totalCustomers = insights.length;
-    final totalRevenue = insights.fold(0.0, (sum, insight) => sum + insight.totalSpent);
-    final averageRevenue = totalCustomers > 0 ? totalRevenue / totalCustomers : 0;
+    final totalRevenue =
+        insights.fold(0.0, (sum, insight) => sum + insight.totalSpent);
+    final averageRevenue =
+        totalCustomers > 0 ? totalRevenue / totalCustomers : 0;
 
     final summary = {
       'totalCustomers': totalCustomers,
-      'activeCustomers': insights.where((insight) => insight.segment == 'Active' || insight.segment == 'VIP' || insight.segment == 'Regular').length,
-      'inactiveCustomers': insights.where((insight) => insight.segment == 'Inactive').length,
+      'activeCustomers': insights
+          .where((insight) =>
+              insight.segment == 'Active' ||
+              insight.segment == 'VIP' ||
+              insight.segment == 'Regular')
+          .length,
+      'inactiveCustomers':
+          insights.where((insight) => insight.segment == 'Inactive').length,
       'totalRevenue': totalRevenue,
       'averageRevenuePerCustomer': averageRevenue,
       'topCustomer': insights.isNotEmpty ? insights.first.customerName : 'None',
@@ -348,11 +388,15 @@ class ReportService {
   }
 
   /// Export report to PDF
-  static Future<Uint8List> exportReportToPdf(Report report, AppSettings settings) async {
+  static Future<Uint8List> exportReportToPdf(
+      Report report, AppSettings settings) async {
     final pdf = pw.Document();
-    final titleStyle = pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold);
-    final headerStyle = pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold);
-    final subheaderStyle = pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold);
+    final titleStyle =
+        pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold);
+    final headerStyle =
+        pw.TextStyle(fontSize: 14, fontWeight: pw.FontWeight.bold);
+    final subheaderStyle =
+        pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold);
     final bodyStyle = pw.TextStyle(fontSize: 10);
     final smallStyle = pw.TextStyle(fontSize: 8);
 
@@ -376,8 +420,10 @@ class ReportService {
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
-                  pw.Text(settings.companyProfile.companyName, style: headerStyle),
-                  pw.Text('Generated: ${dateFormat.format(report.generatedAt)}', style: bodyStyle),
+                  pw.Text(settings.companyProfile.companyName,
+                      style: headerStyle),
+                  pw.Text('Generated: ${dateFormat.format(report.generatedAt)}',
+                      style: bodyStyle),
                 ],
               ),
               pw.SizedBox(height: 5),
@@ -385,7 +431,8 @@ class ReportService {
               pw.SizedBox(height: 5),
               pw.Text(report.title, style: titleStyle),
               pw.SizedBox(height: 5),
-              pw.Text('Period: ${report.config.getPeriodName()}', style: bodyStyle),
+              pw.Text('Period: ${report.config.getPeriodName()}',
+                  style: bodyStyle),
               pw.SizedBox(height: 10),
             ],
           );
@@ -399,7 +446,8 @@ class ReportService {
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                 children: [
                   pw.Text('Dishaan Invoice Xpert', style: smallStyle),
-                  pw.Text('Page ${context.pageNumber} of ${context.pagesCount}', style: smallStyle),
+                  pw.Text('Page ${context.pageNumber} of ${context.pagesCount}',
+                      style: smallStyle),
                 ],
               ),
             ],
@@ -488,9 +536,11 @@ class ReportService {
   }
 
   /// Save report to temporary file
-  static Future<String> saveReportToTempFile(Report report, String format) async {
+  static Future<String> saveReportToTempFile(
+      Report report, String format) async {
     final tempDir = await getTemporaryDirectory();
-    final fileName = '${report.title.replaceAll(' ', '_').toLowerCase()}_${report.id}.${format.toLowerCase()}';
+    final fileName =
+        '${report.title.replaceAll(' ', '_').toLowerCase()}_${report.id}.${format.toLowerCase()}';
     final filePath = '${tempDir.path}/$fileName';
 
     final file = File(filePath);
@@ -532,7 +582,8 @@ class ReportService {
   }
 
   /// Helper method to build summary widgets for PDF
-  static List<pw.Widget> _buildSummaryWidgets(Report report, NumberFormat currencyFormat) {
+  static List<pw.Widget> _buildSummaryWidgets(
+      Report report, NumberFormat currencyFormat) {
     final List<pw.Widget> widgets = [];
 
     if (report.config.type == ReportType.sales) {
@@ -593,7 +644,8 @@ class ReportService {
   }
 
   /// Helper method to build chart widget for PDF
-  static pw.Widget _buildChartWidget(ReportDataSeries series, ChartType chartType) {
+  static pw.Widget _buildChartWidget(
+      ReportDataSeries series, ChartType chartType) {
     // A simplified chart representation - in a real app you would use a proper chart library
     // This just creates a table of values
     return pw.Table(
@@ -605,11 +657,13 @@ class ReportService {
           children: [
             pw.Padding(
               padding: const pw.EdgeInsets.all(5),
-              child: pw.Text('Label', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+              child: pw.Text('Label',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(5),
-              child: pw.Text('Value', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+              child: pw.Text('Value',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
             ),
           ],
         ),

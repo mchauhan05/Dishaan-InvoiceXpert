@@ -6,8 +6,12 @@ import '../screens/customer_form_screen.dart';
 import '../screens/customers_screen.dart';
 import '../screens/dashboard_screen.dart';
 import '../screens/expenses_screen.dart';
-import '../screens/gst_return_filing_screen.dart'; // Import GST Return Filing screen
+import '../screens/eway_bill_screen.dart';
+import '../screens/eway_bill_integration_screen.dart';
+import '../screens/gst_return_filing_screen.dart';
+import '../screens/gst_return_reports_screen.dart';
 import '../screens/indian_gst_settings_screen.dart';
+import '../screens/indian_payment_methods_screen.dart';
 import '../screens/invoices_screen.dart';
 import '../screens/items_screen.dart';
 import '../screens/language_settings_screen.dart';
@@ -28,7 +32,11 @@ class AppRouter {
   static const String indianGstSettings = '/indian_gst_settings';
   static const String languageSettings = '/language_settings';
   static const String upiSettings = '/upi_settings';
-  static const String gstReturnFiling = '/gst_return_filing'; // Add GST Return Filing route
+  static const String gstReturnFiling = '/gst_return_filing';
+  static const String gstReturnReports = '/gst_return_reports';
+  static const String ewayBill = '/eway_bill';
+  static const String ewayBillIntegration = '/eway_bill_integration';
+  static const String indianPaymentMethods = '/indian_payment_methods';
   static const String createInvoice = '/invoices/create';
   static const String editInvoice = '/invoices/edit';
   static const String createCustomer = '/customers/create';
@@ -62,8 +70,16 @@ class AppRouter {
         return _createRoute(const LanguageSettingsScreen());
       case upiSettings:
         return _createRoute(const UpiSettingsScreen());
-      case gstReturnFiling: // Add GST Return Filing case
+      case gstReturnFiling:
         return _createRoute(const GstReturnFilingScreen());
+      case gstReturnReports:
+        return _createRoute(const GstReturnReportsScreen());
+      case ewayBill:
+        return _createRoute(const EwayBillScreen());
+      case ewayBillIntegration:
+        return _createRoute(const EwayBillIntegrationScreen());
+      case indianPaymentMethods:
+        return _createRoute(const IndianPaymentMethodsScreen());
       case createInvoice:
         return _createRoute(const BasicInvoiceForm());
       case editInvoice:
